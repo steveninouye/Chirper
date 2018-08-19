@@ -10,11 +10,25 @@ class App extends Component {
         };
         this.getInput = this.getInput.bind(this);
     }
+    componentDidMount() {
+        this.chirpResponse();
+    }
+
+    chirpResponse() {
+        setTimeout(() => {
+            this.setState((prevState) => {
+                const newChirp = [
+                    { from: 'bot', text: 'Chirp chirp chirp', time: Date.now() }
+                ];
+                return { chatLog: prevState.chatLog.concat(newChirp) };
+            });
+        }, 2000);
+    }
 
     getInput(str) {
-        console.log(str);
         const inputAndTime = { from: 'user', text: str, time: Date.now() };
         this.setState((prevState) => {
+            this.chirpResponse();
             return { chatLog: prevState.chatLog.concat([inputAndTime]) };
         });
     }
@@ -25,7 +39,7 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Welcome to Chirper</h1>
                 </header>
-                <Chirp />
+                <Chirp chatLog={this.state.chatLog} />
                 <Input getInput={this.getInput} />
             </div>
         );
