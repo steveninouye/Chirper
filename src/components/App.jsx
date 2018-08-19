@@ -39,7 +39,9 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Welcome to Chirper</h1>
                 </header>
-                <Chirp chatLog={this.state.chatLog} />
+                <div className="chirp">
+                    <Chirp chatLog={this.state.chatLog} />
+                </div>
                 <Input getInput={this.getInput} />
             </div>
         );
