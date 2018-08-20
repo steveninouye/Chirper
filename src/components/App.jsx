@@ -10,25 +10,32 @@ class App extends Component {
         };
         this.getInput = this.getInput.bind(this);
     }
+
     componentDidMount() {
-        this.chirpResponse();
+        this.chirpResponse(200);
+        this.chirpResponse(400);
+        this.chirpResponse(600);
     }
 
-    chirpResponse() {
+    getRandomTime() {
+        return Math.random() * 2000 + 100;
+    }
+
+    chirpResponse(time) {
         setTimeout(() => {
             this.setState((prevState) => {
                 const newChirp = [
-                    { from: 'bot', text: 'Chirp chirp chirp', time: Date.now() }
+                    { from: 'bot', text: 'Chirp', time: Date.now() }
                 ];
                 return { chatLog: prevState.chatLog.concat(newChirp) };
             });
-        }, 2000);
+        }, time);
     }
 
     getInput(str) {
         const inputAndTime = { from: 'user', text: str, time: Date.now() };
         this.setState((prevState) => {
-            this.chirpResponse();
+            this.chirpResponse(this.getRandomTime());
             return { chatLog: prevState.chatLog.concat([inputAndTime]) };
         });
     }
